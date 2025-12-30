@@ -3,37 +3,23 @@ export const slidesData = [
   {
     id: 1,
     image: './public/images/pic1.JPG', // Thay đổi đường dẫn ảnh của bạn
-    title: 'Kỷ niệm đáng nhớ',
-    description: 'Những khoảnh khắc tuyệt vời đã trải qua trong năm 2025. Mỗi bức ảnh là một câu chuyện, mỗi kỷ niệm là một kho báu quý giá.',
+    title: 'Xem thủy cung nè',
+    description: 'Con mẹ nó chứ, đi mục tiêu t là ngắm cá mập + bạch tuộc + cá heo các kiểu. Bạch tuộc, cá heo thì ko thấy đâu, cá mập bằng cái nắm đấm. Lừa, nhưng không seo, vui vl =))',
     year: '2025'
   },
   {
     id: 2,
     image: './public/images/pic2.JPG',
-    title: 'Thành tựu đạt được',
-    description: 'Những mục tiêu đã hoàn thành, những thử thách đã vượt qua. Mỗi bước đi là một bước tiến trên hành trình của chúng ta.',
+    title: 'Game bắn cung nè',
+    description: 'Có tiềm năng thành xạ thủ đấy',
     year: '2025'
   },
   {
     id: 3,
     image: './public/images/pic3.JPG',
-    title: 'Những chuyến đi',
-    description: 'Khám phá những vùng đất mới, gặp gỡ những con người mới. Mỗi chuyến đi mở ra một chương mới trong cuốn sách cuộc đời.',
+    title: 'Coffe trên tầng thượng',
+    description: 'Haizz ngồi nghe nhạc mà suy đét, nghĩ về cuộc đời trong 1h =)). Nhạc hay vl luôn, + 1 điểm đến yêu thích',
     year: '2025'
   },
-  {
-    id: 4,
-    image: './public/images/pic4.JPG',
-    title: 'Gia đình và bạn bè',
-    description: 'Những người thân yêu luôn bên cạnh, chia sẻ niềm vui và nỗi buồn. Tình cảm ấm áp là điều quý giá nhất.',
-    year: '2025'
-  },
-  {
-    id: 5,
-    image: './public/images/pic5.JPG',
-    title: 'Những khoảnh khắc hạnh phúc',
-    description: 'Nụ cười, niềm vui, sự hài lòng. Những khoảnh khắc đơn giản nhưng đầy ý nghĩa tạo nên cuộc sống tươi đẹp.',
-    year: '2025'
-  }
 ]
 

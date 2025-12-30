@@ -13,7 +13,7 @@ export default function Confetti() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Giảm số lượng confetti trên mobile để tối ưu performance
+
   const confettiCount = isMobile ? 25 : 50
 
   return (

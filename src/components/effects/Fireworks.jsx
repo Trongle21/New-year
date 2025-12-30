@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { Fireworks } from '@fireworks-js/react'
 
-export default function FireworksEffect() {
+export default function FireworksEffect({ intensity = null, delay = null, zIndex = 10 }) {
   const ref = useRef(null)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -14,6 +14,10 @@ export default function FireworksEffect() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  // Tính toán cường độ và delay dựa trên prop hoặc giá trị mặc định
+  const fireworksIntensity = intensity !== null ? intensity : (isMobile ? 20 : 30)
+  const fireworksDelay = delay !== null ? delay : { min: 15, max: isMobile ? 60 : 30 }
+
   return (
     <Fireworks
       ref={ref}
@@ -21,11 +25,11 @@ export default function FireworksEffect() {
         // Màu sắc pháo hoa
         hue: { min: 0, max: 360 },
         // Khoảng thời gian giữa các lần bắn (ms)
-        delay: { min: 15, max: isMobile ? 60 : 30 },
+        delay: fireworksDelay,
         // Số lượng hạt pháo hoa
         rocketsPoint: { min: 50, max: isMobile ? 80 : 100 },
         // Cường độ pháo hoa
-        intensity: isMobile ? 20 : 30,
+        intensity: fireworksIntensity,
         // Tốc độ
         speed: { min: 2, max: 3 },
         // Độ phân tán
@@ -59,7 +63,7 @@ export default function FireworksEffect() {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: 10,
+        zIndex: zIndex,
         pointerEvents: 'none' // Cho phép click xuyên qua
       }}
     />

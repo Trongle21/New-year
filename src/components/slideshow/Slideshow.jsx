@@ -3,15 +3,25 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import SlideItem from './SlideItem'
 import { slidesData } from '@/data/slides'
+import RedEnvelope from '@/components/redenvelope/RedEnvelope'
 
 export default function Slideshow({ onClose }) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [showRedEnvelope, setShowRedEnvelope] = useState(false)
 
   const totalSlides = slidesData.length
+  const isLastSlide = currentSlide === totalSlides - 1
 
   const nextSlide = () => {
     if (isTransitioning) return
+    
+    // Nếu đang ở slide cuối, chuyển sang màn chọn lì xì
+    if (isLastSlide) {
+      setShowRedEnvelope(true)
+      return
+    }
+    
     setIsTransitioning(true)
     setCurrentSlide((prev) => (prev + 1) % totalSlides)
     setTimeout(() => setIsTransitioning(false), 500)
@@ -33,6 +43,8 @@ export default function Slideshow({ onClose }) {
 
   // Keyboard navigation
   useEffect(() => {
+    if (showRedEnvelope) return
+    
     const handleKeyPress = (e) => {
       if (e.key === 'ArrowRight') nextSlide()
       if (e.key === 'ArrowLeft') prevSlide()
@@ -41,7 +53,7 @@ export default function Slideshow({ onClose }) {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentSlide, isTransitioning])
+  }, [currentSlide, isTransitioning, showRedEnvelope])
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 md:p-8">
@@ -85,7 +97,7 @@ export default function Slideshow({ onClose }) {
           onClick={nextSlide}
           disabled={isTransitioning}
           className="absolute right-2 sm:right-4 md:right-6 z-10 text-white hover:bg-white/20 disabled:opacity-50 h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14"
-          aria-label="Slide tiếp theo"
+          aria-label={isLastSlide ? "Chọn lì xì" : "Slide tiếp theo"}
         >
           <ChevronRight className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10" />
         </Button>
@@ -111,6 +123,16 @@ export default function Slideshow({ onClose }) {
       <div className="absolute top-4 sm:top-6 left-4 sm:left-6 text-white/80 text-sm sm:text-base md:text-lg font-medium z-10">
         {currentSlide + 1} / {totalSlides}
       </div>
+
+      {/* Red Envelope Screen - Hiển thị trên cùng */}
+      {showRedEnvelope && (
+        <div className="fixed inset-0 z-[101]">
+          <RedEnvelope onClose={() => {
+            setShowRedEnvelope(false)
+            onClose?.()
+          }} />
+        </div>
+      )}
     </div>
   )
 }

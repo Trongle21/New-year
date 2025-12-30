@@ -53,10 +53,26 @@
   * {
     @apply border-border;
   }
+  html {
+    background: linear-gradient(to bottom right, #0f172a, #581c87, #312e81, #1e1b4b);
+    background-attachment: fixed;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: linear-gradient(to bottom right, #0f172a, #581c87, #312e81, #1e1b4b);
+    background-attachment: fixed;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+  }
+  #root {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
   }
   
   /* Tối ưu cho mobile */
