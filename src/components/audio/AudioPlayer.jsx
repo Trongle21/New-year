@@ -13,7 +13,7 @@ const defaultPlaylist = [
   { id: 5, name: 'Bài hát 5', src: '/audio/audio5.mp3' },
 ]
 
-export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist }) {
+export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist, onPlayStateChange, playTrigger }) {
   // Tìm index của bài hát hiện tại trong playlist
   const getCurrentSongIndex = () => {
     const currentSrc = audioSrc || playlist[0]?.src
@@ -49,6 +49,29 @@ export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist }) {
   useEffect(() => {
     setEditablePlaylist(playlist)
   }, [playlist])
+
+  // Thông báo cho parent component khi trạng thái phát thay đổi
+  useEffect(() => {
+    if (onPlayStateChange) {
+      onPlayStateChange(isPlaying)
+    }
+  }, [isPlaying, onPlayStateChange])
+
+  // Xử lý khi có request phát nhạc từ bên ngoài
+  useEffect(() => {
+    if (playTrigger && audioRef.current && !isPlaying) {
+      const playAudio = async () => {
+        try {
+          await audioRef.current.play()
+          setIsPlaying(true)
+          setUserInteractionHandlerAdded(true)
+        } catch (err) {
+          console.error('Lỗi khi phát nhạc:', err)
+        }
+      }
+      playAudio()
+    }
+  }, [playTrigger, isPlaying])
 
   useEffect(() => {
     if (audioRef.current) {
