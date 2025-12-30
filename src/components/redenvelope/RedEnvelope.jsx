@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import FireworksEffect from '../effects/Fireworks'
+import NewYearMessageModal from '@/components/ui/NewYearMessageModal'
 
 const amounts = [
   { value: 10000, label: '10.000₫', image: '/images/10k.jpg' },
@@ -19,6 +20,7 @@ export default function RedEnvelope({ onClose }) {
   const [selectedEnvelopeIndex, setSelectedEnvelopeIndex] = useState(null)
   const [moneySliding, setMoneySliding] = useState(false)
   const [hasSelected, setHasSelected] = useState(false)
+  const [showMessageModal, setShowMessageModal] = useState(false)
 
   // Kiểm tra localStorage khi component mount
   useEffect(() => {
@@ -206,16 +208,21 @@ export default function RedEnvelope({ onClose }) {
                 </div>
 
                 <Button
-                  onClick={handleClose}
+                  onClick={() => setShowMessageModal(true)}
                   className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-lg sm:text-xl px-8 sm:px-12 py-6 sm:py-8 rounded-xl shadow-xl font-bold transform hover:scale-105 transition-all duration-300"
                 >
-                  Đóng
+                  Típ
                 </Button>
               </Card>
             </div>
           </div>
         )}
       </div>
+
+      <NewYearMessageModal 
+        isOpen={showMessageModal}
+        onClose={() => setShowMessageModal(false)}
+      />
     </div>
   )
 }
