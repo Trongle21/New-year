@@ -90,7 +90,7 @@ export default function RedEnvelope({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] bg-gradient-to-br from-red-900 via-red-800 to-amber-900 flex items-center justify-center p-4 sm:p-6 md:p-8">
+    <div className="fixed inset-0 z-[100] bg-gradient-to-br from-red-900 via-red-800 to-amber-900 flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-y-auto">
       {/* Pháo hoa ngập trời khi tiền được chọn xong */}
       {moneySliding && (
         <FireworksEffect 
@@ -111,7 +111,7 @@ export default function RedEnvelope({ onClose }) {
         <X className="h-6 w-6 sm:h-8 sm:w-8" />
       </Button>
 
-      <div className="relative w-full max-w-4xl flex flex-col items-center">
+      <div className="relative w-full max-w-4xl flex flex-col items-center py-4 sm:py-6">
         {/* Title */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-yellow-300 mb-6 sm:mb-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] text-center">
           Chọn Lì Xì 🧧
@@ -190,26 +190,26 @@ export default function RedEnvelope({ onClose }) {
 
             {/* Thông báo số tiền */}
             <div
-              className={`text-center mt-8 transition-all duration-1000 delay-700 ${
+              className={`text-center mt-4 sm:mt-6 transition-all duration-1000 delay-700 ${
                 moneySliding ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
-              <Card className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 sm:p-8 md:p-12 shadow-2xl border-4 border-yellow-400 inline-block">
-                <div className="mb-6">
-                  <div className="text-4xl sm:text-5xl md:text-6xl font-black text-red-600 mb-4 sm:mb-6 drop-shadow-lg">
+              <Card className="bg-gradient-to-br from-yellow-50 to-amber-50 p-4 sm:p-6 md:p-8 shadow-2xl border-4 border-yellow-400 inline-block max-w-full">
+                <div className="mb-4 sm:mb-5">
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-black text-red-600 mb-3 sm:mb-4 drop-shadow-lg">
                     {selectedAmount?.label}
                   </div>
-                  <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-800 mb-2">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-800 mb-2">
                     Chúc Mừng, Chúc mừng, hehe
                   </p>
-                  <p className="text-lg sm:text-xl md:text-2xl text-amber-700">
+                  <p className="text-base sm:text-lg md:text-xl text-amber-700 px-2">
                   Nhắn qua facebook t để húp NẾU CẦN nhé ( chụp màn hình đối chứng)!!
                   </p>
                 </div>
 
                 <Button
                   onClick={() => setShowMessageModal(true)}
-                  className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-lg sm:text-xl px-8 sm:px-12 py-6 sm:py-8 rounded-xl shadow-xl font-bold transform hover:scale-105 transition-all duration-300"
+                  className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-6 rounded-xl shadow-xl font-bold transform hover:scale-105 transition-all duration-300 mt-2"
                 >
                   Típ
                 </Button>
