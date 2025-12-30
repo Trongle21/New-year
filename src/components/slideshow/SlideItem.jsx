@@ -1,11 +1,46 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { getImageUrl } from '@/data/slides'
 
 export default function SlideItem({ slide, isActive }) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [imageError, setImageError] = useState(false)
-  const imageSrc = getImageUrl(slide.image)
+  const [imageSrc, setImageSrc] = useState(getImageUrl(slide.image))
+  const [attemptedPaths, setAttemptedPaths] = useState([getImageUrl(slide.image)])
+
+  // Reset state khi slide thay đổi
+  useEffect(() => {
+    const newSrc = getImageUrl(slide.image)
+    setImageSrc(newSrc)
+    setAttemptedPaths([newSrc])
+    setImageLoaded(false)
+    setImageError(false)
+  }, [slide.id, slide.image])
+
+  // Tạo danh sách các biến thể đường dẫn để thử (chỉ cho cùng một file)
+  const getAlternativePaths = (originalPath) => {
+    // Nếu là URL tuyệt đối, không thử biến thể
+    if (originalPath.startsWith('http://') || originalPath.startsWith('https://')) {
+      return [originalPath]
+    }
+    
+    const alternatives = [originalPath]
+    const pathParts = originalPath.split('/')
+    const fileName = pathParts[pathParts.length - 1]
+    const dirPath = pathParts.slice(0, -1).join('/')
+    
+    // Thử các biến thể case của tên file
+    if (fileName.includes('.')) {
+      const [name, ext] = fileName.split('.')
+      alternatives.push(`${dirPath}/${name.toLowerCase()}.${ext.toLowerCase()}`)
+      alternatives.push(`${dirPath}/${name.toUpperCase()}.${ext.toUpperCase()}`)
+      alternatives.push(`${dirPath}/${name}.${ext.toLowerCase()}`)
+      alternatives.push(`${dirPath}/${name}.${ext.toUpperCase()}`)
+    }
+    
+    // Loại bỏ trùng lặp
+    return [...new Set(alternatives)]
+  }
 
   return (
     <div
@@ -23,15 +58,31 @@ export default function SlideItem({ slide, isActive }) {
               onLoad={() => setImageLoaded(true)}
               onError={(e) => {
                 console.error('Lỗi tải ảnh:', imageSrc, 'cho slide:', slide.title)
-                // Báo lỗi ngay, không thử thay thế
-                setImageError(true)
-                setImageLoaded(true)
+                
+                // Lấy tất cả các biến thể đường dẫn có thể thử
+                const allAlternatives = getAlternativePaths(slide.image)
+                
+                // Tìm đường dẫn tiếp theo chưa thử
+                const nextPath = allAlternatives.find(path => !attemptedPaths.includes(path))
+                
+                if (nextPath) {
+                  // Thử đường dẫn tiếp theo
+                  console.log('Thử đường dẫn thay thế:', nextPath)
+                  setAttemptedPaths(prev => [...prev, nextPath])
+                  setImageSrc(nextPath)
+                  setImageLoaded(false)
+                } else {
+                  // Đã thử hết tất cả biến thể, báo lỗi
+                  console.error('Đã thử tất cả biến thể nhưng không thành công cho slide:', slide.title)
+                  setImageError(true)
+                  setImageLoaded(true)
+                }
               }}
               className={`w-full h-full object-cover transition-opacity duration-500 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               loading="lazy"
-              key={slide.id}
+              key={`${slide.id}-${imageSrc}`}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
