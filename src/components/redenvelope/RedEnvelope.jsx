@@ -201,7 +201,7 @@ export default function RedEnvelope({ onClose }) {
                     Chúc Mừng, Chúc mừng, hehe
                   </p>
                   <p className="text-lg sm:text-xl md:text-2xl text-amber-700">
-                  Nhắn qua facebook t để húp NẾU CẦN nhé!!
+                  Nhắn qua facebook t để húp NẾU CẦN nhé ( chụp màn hình đối chứng)!!
                   </p>
                 </div>
 

@@ -11,17 +11,48 @@ import AudioPlayer from './components/audio/AudioPlayer'
 import AudioPromptIcon from './components/audio/AudioPromptIcon'
 import PikachuGamePanel from './components/game/PikachuGamePanel'
 import { Card } from './components/ui/card'
+import PasswordModal from './components/ui/PasswordModal'
+import ViewImagesButton from './components/ui/ViewImagesButton'
+import PasswordIconButton from './components/ui/PasswordIconButton'
 
 function App() {
   const [showSlideshow, setShowSlideshow] = useState(false)
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [countdownEnded, setCountdownEnded] = useState(() => {
+    // Kiểm tra ngay khi component mount xem thời gian đã qua chưa
+    try {
+      const targetTime = new Date('2026-01-01T00:05:00')
+      const now = new Date()
+      // Nếu thời gian đã qua hoặc không hợp lệ, tự động hiển thị nút
+      return isNaN(targetTime.getTime()) || targetTime <= now
+    } catch (error) {
+      console.error('Lỗi kiểm tra thời gian:', error)
+      // Nếu có lỗi, tự động hiển thị nút
+      return true
+    }
+  })
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
   const [showAudioPrompt, setShowAudioPrompt] = useState(true)
   const [playTrigger, setPlayTrigger] = useState(0)
 
   const handleCountdownEnd = () => {
-    setTimeout(() => {
-      setShowSlideshow(true)
-    }, 0)
+    // Không tự động mở slideshow nữa
+  }
+
+  const handleCountdownEndStateChange = (ended) => {
+    setCountdownEnded(ended)
+  }
+
+  const handleViewImages = () => {
+    setShowSlideshow(true)
+  }
+
+  const handlePasswordIconClick = () => {
+    setShowPasswordModal(true)
+  }
+
+  const handlePasswordSuccess = () => {
+    setShowSlideshow(true)
   }
 
   const handleAudioPlayStateChange = (isPlaying) => {
@@ -58,7 +89,14 @@ function App() {
         <div className="relative z-[2] text-center px-4 sm:px-6 md:px-8 w-full max-w-6xl">
           <Card className="bg-slate-900/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 shadow-2xl border-purple-500/20 animate-[fadeInUp_1s_ease-out]">
             <NewYearTitle />
-            <CountdownTimer onCountdownEnd={handleCountdownEnd} />
+            {!countdownEnded ? (
+              <CountdownTimer 
+                onCountdownEnd={handleCountdownEnd} 
+                onCountdownEndStateChange={handleCountdownEndStateChange}
+              />
+            ) : (
+              <ViewImagesButton onClick={handleViewImages} />
+            )}
             <MessageDisplay />
           </Card>
         </div>
@@ -66,7 +104,15 @@ function App() {
         <AudioPlayer audioSrc="/audio/audio.mp3" onPlayStateChange={handleAudioPlayStateChange} playTrigger={playTrigger} />
         
         <PikachuGamePanel />
+
+        <PasswordIconButton onClick={handlePasswordIconClick} />
       </div>
+
+      <PasswordModal 
+        isOpen={showPasswordModal}
+        onClose={() => setShowPasswordModal(false)}
+        onSuccess={handlePasswordSuccess}
+      />
 
       {showSlideshow && (
         <Slideshow onClose={() => setShowSlideshow(false)} />

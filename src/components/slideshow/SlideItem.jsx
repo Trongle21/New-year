@@ -49,7 +49,7 @@ export default function SlideItem({ slide, isActive }) {
       }`}
     >
       <Card className="w-full max-w-5xl mx-auto bg-white/10 backdrop-blur-lg border-white/20 shadow-2xl overflow-hidden">
-        <div className="relative w-full aspect-video sm:aspect-[16/10] md:aspect-[16/9] bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+        <div className="relative w-full min-h-[40vh] max-h-[70vh] bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
           {/* Image Container */}
           {!imageError ? (
             <img
@@ -78,7 +78,7 @@ export default function SlideItem({ slide, isActive }) {
                   setImageLoaded(true)
                 }
               }}
-              className={`w-full h-full object-cover transition-opacity duration-500 ${
+              className={`max-w-full max-h-[70vh] w-auto h-auto object-contain transition-opacity duration-500 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               loading="lazy"
