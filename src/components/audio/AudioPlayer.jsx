@@ -27,6 +27,7 @@ export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist }) {
   const [showPlaylist, setShowPlaylist] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [autoplayAttempted, setAutoplayAttempted] = useState(false)
+  const [userInteractionHandlerAdded, setUserInteractionHandlerAdded] = useState(false)
   const [currentSongIndex, setCurrentSongIndex] = useState(() => {
     const index = getCurrentSongIndex()
     return index >= 0 ? index : 0
@@ -143,6 +144,35 @@ export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist }) {
     }
   }, [isShuffle, editablePlaylist.length])
 
+  // Thêm handler để tự động phát nhạc khi user tương tác lần đầu
+  useEffect(() => {
+    if (userInteractionHandlerAdded || isPlaying) return
+
+    const handleUserInteraction = async () => {
+      if (audioRef.current && !isPlaying) {
+        try {
+          setUserInteractionHandlerAdded(true)
+          await audioRef.current.play()
+          setIsPlaying(true)
+          console.log('Nhạc đã phát sau khi user tương tác')
+        } catch (err) {
+          console.error('Lỗi khi phát nhạc:', err)
+        }
+      }
+    }
+
+    // Thêm listener cho các sự kiện user interaction
+    document.addEventListener('click', handleUserInteraction, { once: true })
+    document.addEventListener('touchstart', handleUserInteraction, { once: true })
+    document.addEventListener('keydown', handleUserInteraction, { once: true })
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction)
+      document.removeEventListener('touchstart', handleUserInteraction)
+      document.removeEventListener('keydown', handleUserInteraction)
+    }
+  }, [userInteractionHandlerAdded, isPlaying])
+
   // Tự động phát nhạc khi component mount
   useEffect(() => {
     if (autoplayAttempted) return
@@ -172,8 +202,6 @@ export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist }) {
           console.log('Nhạc đã tự động phát')
         } catch (error) {
           console.warn('Không thể tự động phát nhạc (cần tương tác người dùng):', error)
-          // Một số browser yêu cầu user interaction trước
-          // Người dùng sẽ cần click nút play
           if (audioRef.current) {
             audioRef.current.muted = isMuted
           }
