@@ -72,24 +72,6 @@ export default function GameMenu({ selectedGame, onSelectGame, onClose }) {
         })}
       </div>
 
-      {onClose && (
-        <Button
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            onClose()
-          }}
-          onTouchStart={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            onClose()
-          }}
-          variant="outline"
-          className="w-full mt-4 border-black/30 text-black hover:bg-black/10"
-        >
-          Đóng menu
-        </Button>
-      )}
     </div>
   )
 }
