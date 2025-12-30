@@ -6,11 +6,13 @@ import { Card } from '@/components/ui/card'
 
 // Danh sách bài hát mặc định
 const defaultPlaylist = [
-  { id: 1, name: 'Bài hát 1', src: '/audio/audio.mp3' },
-  { id: 2, name: 'Bài hát 2', src: '/audio/audio2.mp3' },
-  { id: 3, name: 'Bài hát 3', src: '/audio/audio3.mp3' },
-  { id: 4, name: 'Bài hát 4', src: '/audio/audio4.mp3' },
-  { id: 5, name: 'Bài hát 5', src: '/audio/audio5.mp3' },
+  { id: 1, name: 'Lần sau cuối', src: '/audio/audio.mp3' },
+  { id: 2, name: 'Chỉ là muốn nói', src: '/audio/audio2.mp3' },
+  { id: 3, name: 'Đánh mất em', src: '/audio/audio3.mp3' },
+  { id: 4, name: '3107', src: '/audio/audio4.mp3' },
+  { id: 5, name: 'Đi qua mùa hạ', src: '/audio/audio5.mp3' },
+  { id: 6, name: 'Cảm giác lúc ấy sẽ ra sao', src: '/audio/audio6.mp3' },
+  { id: 7, name: 'Đi qua cơn giông của chính mình', src: '/audio/audio7.mp3' },
 ]
 
 export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist, onPlayStateChange, playTrigger }) {
