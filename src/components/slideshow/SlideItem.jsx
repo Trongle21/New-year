@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
+import { getImageUrl } from '@/data/slides'
 
 export default function SlideItem({ slide, isActive }) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [imageError, setImageError] = useState(false)
-
-  // Fallback image nếu ảnh không tải được
-  const fallbackImage = 'https://via.placeholder.com/800x600/667eea/ffffff?text=Hình+ảnh+kỷ+niệm'
+  const imageSrc = getImageUrl(slide.image)
 
   return (
     <div
@@ -19,16 +18,20 @@ export default function SlideItem({ slide, isActive }) {
           {/* Image Container */}
           {!imageError ? (
             <img
-              src={slide.image}
+              src={imageSrc}
               alt={slide.title}
               onLoad={() => setImageLoaded(true)}
-              onError={() => {
+              onError={(e) => {
+                console.error('Lỗi tải ảnh:', imageSrc, 'cho slide:', slide.title)
+                // Báo lỗi ngay, không thử thay thế
                 setImageError(true)
                 setImageLoaded(true)
               }}
               className={`w-full h-full object-cover transition-opacity duration-500 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
+              loading="lazy"
+              key={slide.id}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">

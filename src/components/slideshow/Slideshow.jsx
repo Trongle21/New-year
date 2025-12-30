@@ -16,7 +16,7 @@ export default function Slideshow({ onClose }) {
   const nextSlide = () => {
     if (isTransitioning) return
     
-    // Nếu đang ở slide cuối, chuyển sang màn chọn lì xì
+
     if (isLastSlide) {
       setShowRedEnvelope(true)
       return

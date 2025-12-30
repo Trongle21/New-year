@@ -801,8 +801,14 @@ export default function AudioPlayer({ audioSrc, playlist = defaultPlaylist, onPl
         src={currentAudioSrc}
         autoPlay
         preload="auto"
+        playsInline
         onEnded={handleAudioEnd}
-        onPlay={() => setIsPlaying(true)}
+        onPlay={() => {
+          // Chỉ set isPlaying = true khi thực sự phát được
+          if (audioRef.current && !audioRef.current.paused) {
+            setIsPlaying(true)
+          }
+        }}
         onPause={() => setIsPlaying(false)}
         onError={handleAudioError}
         onLoadStart={handleAudioLoadStart}

@@ -26,8 +26,12 @@ function App() {
 
   const handleAudioPlayStateChange = (isPlaying) => {
     setIsAudioPlaying(isPlaying)
+    // Chỉ ẩn icon khi nhạc thực sự đang phát (thêm delay để tránh ẩn quá sớm)
     if (isPlaying) {
-      setShowAudioPrompt(false)
+      // Delay một chút để đảm bảo nhạc thực sự đang phát
+      setTimeout(() => {
+        setShowAudioPrompt(false)
+      }, 500)
     }
   }
 
@@ -48,7 +52,7 @@ function App() {
         {/* Icon nhạc nhỏ góc trái trên */}
         <AudioPromptIcon 
           onClick={handlePromptClick}
-          isVisible={showAudioPrompt && !isAudioPlaying}
+          isVisible={showAudioPrompt}
         />
 
         <div className="relative z-[2] text-center px-4 sm:px-6 md:px-8 w-full max-w-6xl">
