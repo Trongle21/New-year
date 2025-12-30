@@ -80,7 +80,7 @@ function App() {
         <Confetti />
         <Lanterns />
 
-        {/* Icon nhạc nhỏ góc trái trên */}
+
         <AudioPromptIcon 
           onClick={handlePromptClick}
           isVisible={showAudioPrompt}

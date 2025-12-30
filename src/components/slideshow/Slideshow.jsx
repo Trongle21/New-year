@@ -8,7 +8,7 @@ import { slidesData } from '@/data/slides'
 import RedEnvelope from '@/components/redenvelope/RedEnvelope'
 import WallpaperGame from './WallpaperGame'
 
-const PASSWORD = '3007'
+const PASSWORD = '30073007'
 const PASSWORD_REQUIRED_SLIDE_INDEX = 3 // Slide thứ 4 (index 3) trở đi cần mật khẩu
 const AUTH_STORAGE_KEY = 'slideshow_authenticated'
 

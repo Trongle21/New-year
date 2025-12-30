@@ -14,7 +14,7 @@ export default function CountdownTimer({ onCountdownEnd, onCountdownEndStateChan
   useEffect(() => {
     try {
       // Set thời gian đếm ngược đến 1/1/2026 lúc 00:05
-      const targetTime = new Date('2026-01-01T00:05:00')
+      const targetTime = new Date('2026-01-01T00:00:00')
       
       // Kiểm tra nếu thời gian đã qua hoặc không hợp lệ
       const now = new Date()
