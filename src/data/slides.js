@@ -75,7 +75,7 @@ export const slidesData = [
     id:12,
     image: 'https://i.postimg.cc/XvHWDzGb/z7385574397598-6ea565f4201110f1a52dd5442699ea2e.jpg', 
     title: '=))',
-    description: 'Thôi thì cảm ơn vì đã đồng hành trong năm qua, giúp cho những tháng cuối năm 2025 của t bớt nhàm chán, cảm nhận cảm xúc của tuổi trẻ, bớt cô đơn và trống trải. Đi chơi với Huy đực rựa nhiều quá r.',
+    description: 'Thôi thì cảm ơn vì đã đồng hành trong năm qua, giúp cho những tháng cuối năm 2025 của t bớt nhàm chán, cảm nhận cảm xúc của tuổi trẻ, bớt cô đơn và trống trải.Mong trong năm 2026 có thể trải nghiệm nhiều thứ cùng nhau hơn. Đi chơi với Huy đực rựa nhiều quá r.',
     year: '2025'
   },
 ]
