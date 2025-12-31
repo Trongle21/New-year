@@ -29,7 +29,7 @@ function NewYearMessageModal({ isOpen, onClose }) {
             {/* Message Content */}
             <div className="bg-white/80 rounded-xl p-6 sm:p-8 md:p-10 shadow-lg border-2 border-amber-300">
               <div className="text-lg sm:text-xl md:text-2xl text-amber-900 leading-relaxed whitespace-pre-line">
-                Nhạc chill chưa. Chúc m năm mới 2026 vui vẻ và thành công! Ngủ sớm đi, giữ sức khỏe và làm những việc mình yêu thích.
+                Nhạc chill chưa( Nó từng cứu cánh t 1 thời gian khỏi stress đó).  Chúc m năm mới 2026 vui vẻ và thành công! Ngủ sớm đi, giữ sức khỏe và làm những việc mình yêu thích.
               </div>
             </div>
 

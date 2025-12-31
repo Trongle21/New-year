@@ -108,17 +108,12 @@ export default function SlideItem({ slide, isActive }) {
         {/* Content */}
         <CardContent className="p-6 sm:p-8 md:p-10 lg:p-12 bg-gradient-to-b from-white/5 to-transparent">
           <div className="text-center space-y-4 sm:space-y-6">
-            {/* Year Badge */}
-            <div className="inline-block px-4 py-2 bg-yellow-400/20 backdrop-blur-sm border border-yellow-400/30 rounded-full">
-              <span className="text-yellow-400 font-bold text-sm sm:text-base md:text-lg">
-                {slide.year}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white drop-shadow-lg leading-tight">
-              {slide.title}
-            </h2>
+            {/* Title - chỉ hiển thị nếu có title */}
+            {slide.title && (
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white drop-shadow-lg leading-tight">
+                {slide.title}
+              </h2>
+            )}
 
             {/* Description */}
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-4xl mx-auto font-light">
